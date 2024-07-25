@@ -43,21 +43,6 @@ function handlePaging() {
     handleNext(pages);
 }
 
-function clearWarning(input) { // clear invalid input and its warning
-    const warningContainer = document.querySelector('.warning');
-    const warningText = document.querySelector('.warning-text');
-    warningText.textContent = '';
-    warningContainer.style.display = 'none';
-}
-
-function handleNextError() {
-    const nextButton = document.getElementById('next');
-    const formURL = window.location.href.split('?')[0]; // form url without params
-    nextButton.addEventListener('click', ()=> {
-        window.location.href = formURL;
-    })
-}
-
 function handleNext(pages) {
     const nextButton = document.getElementById('next');
 
