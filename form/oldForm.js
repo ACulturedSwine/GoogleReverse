@@ -49,7 +49,7 @@ function getInputs() {
 
 function handlePaging() {
     const pages = [
-        new FormPage('name', 'Create a Google', 'Enter a name'),
+        new FormPage('name', 'Create a Google Account', 'Enter a name'),
         new FormPage('birthday gender', 'Basic information', 'Enter a birthday and gender')
     ];
 
