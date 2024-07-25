@@ -1,6 +1,6 @@
 import { FormPage , FormManager } from '/form/classes.js';
 
-let pageNum = null; // pageNum starts at 1
+let pageNum = 1; // pageNum starts at 1
 let currentPageEl = document.getElementById('page-1');
 let savedInputs = {};
 const formManager = new FormManager();
