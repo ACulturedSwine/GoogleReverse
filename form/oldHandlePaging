@@ -1,0 +1,67 @@
+/* 
+  This version of handlePaging() prevents user from changing URL params and shows error message.
+  Clicking on the 'Next' button restarts the form.
+*/
+
+function handlePaging() {
+    const pages = [
+        new FormPage('name', 'Create a Google', 'Enter a name'),
+        new FormPage('birthday gender', 'Basic information', 'Enter a birthday and gender')
+    ];
+
+    // On new form or reload.
+
+    const queryString = window.location.search;
+    if (queryString) {
+        const urlParams = new URLSearchParams(queryString);
+        pageNum = urlParams.get('page');
+        if (pageNum < 1 || pageNum > pages.length) { // invalid page number
+            // hide initialized page and description
+            currentPageEl.style.display = 'none';
+            const errorEl = document.getElementById('error');
+            const descEl = document.getElementById('desc');
+            descEl.style.display = 'none';
+
+            // show error message
+            errorEl.textContent = `Error, please re-complete the form. Click "Next" to proceed.`;
+            errorEl.style.display = 'block';
+
+            // reload form on clicking next button
+            handleNextError();
+
+            return; // don't do anything later in handlePaging()
+        }
+        else {
+            displayNewPage(pages, pageNum);
+        }
+        
+    }
+    else { // newly entered form, add params to url
+        pageNum = 1;
+        updatePageURL(pages, 1);
+    }
+
+    // page changes
+
+    window.addEventListener('popstate', (e)=> {
+        let newPageNum = e.state.page;
+        if (!newPageNum) {
+            console.error('Page number not found in state');
+        }
+        pageNum = newPageNum;
+
+        clearWarning();
+        displayNewPage(pages, pageNum);
+    })
+
+    handleNext(pages);
+}
+
+function handleNextError() {
+    const nextButton = document.getElementById('next');
+    const formURL = window.location.href.split('?')[0]; // form url without params
+    nextButton.addEventListener('click', ()=> {
+        window.location.href = formURL;
+    })
+}
+
